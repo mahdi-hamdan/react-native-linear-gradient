@@ -147,10 +147,9 @@ public class LinearGradientView extends View {
                 mColors,
                 mLocations,
                 Shader.TileMode.CLAMP);
-          mPaint.setStrokeWidth(mStrokeWidth);
         if (mTransparent) {
             mPaint.setStyle(Paint.Style.STROKE);
-             mPaint.setStrokeCap(Paint.Cap.ROUND);
+            mPaint.setStrokeWidth(mStrokeWidth);
         } else {
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         }
