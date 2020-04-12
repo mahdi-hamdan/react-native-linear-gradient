@@ -73,6 +73,7 @@ public class LinearGradientView extends View {
 
     public void setIsTransparent(boolean transparent) {
         mTransparent = transparent;
+        updatePath();
         drawGradient();
     }
 
@@ -146,10 +147,10 @@ public class LinearGradientView extends View {
                 mColors,
                 mLocations,
                 Shader.TileMode.CLAMP);
+          mPaint.setStrokeWidth(mStrokeWidth);
         if (mTransparent) {
             mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setStrokeWidth(mStrokeWidth);
-            mPaint.setStrokeCap(Paint.Cap.ROUND);
+             mPaint.setStrokeCap(Paint.Cap.ROUND);
         } else {
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         }
@@ -157,13 +158,21 @@ public class LinearGradientView extends View {
         invalidate();
     }
 
-    private void updatePath() {
+  private void updatePath() {
+        int[] newSize = new int[2]; 
+        int strokeWidth = 0; 
         if (mPathForBorderRadius == null) {
             mPathForBorderRadius = new Path();
             mTempRectForBorderRadius = new RectF();
         }
+        if (mTransparent) {
+             mTempRectForBorderRadius = new RectF();
+            mTempRectForBorderRadius.set((float) mStrokeWidth-2, (float) mStrokeWidth-2, (float) mSize[0] - (mStrokeWidth-2), (float) mSize[1] - (mStrokeWidth-2));
+        }else  {
+             mTempRectForBorderRadius = new RectF();
+             mTempRectForBorderRadius.set( 0f, 0f , (float) mSize[0] , (float) mSize[1] );
+        }       
         mPathForBorderRadius.reset();
-        mTempRectForBorderRadius.set(0f, 0f, (float) mSize[0], (float) mSize[1]);
         mPathForBorderRadius.addRoundRect(
                 mTempRectForBorderRadius,
                 mBorderRadii,
