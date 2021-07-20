@@ -42,7 +42,7 @@
   "devDependencies": {
     "flow-bin": "^0.92",
     "react": "^16.8.3",
-    "react-native": "^0.59.1"
+    "react-native": "^0.62.3"
   },
   "scripts": {
     "flow": "yarn flow:android && yarn flow:ios",
